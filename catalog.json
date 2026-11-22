@@ -1,0 +1,389 @@
+{
+  "server": {
+    "name": "io.github.ClearMetricAI/clearmetric-mcp",
+    "title": "ClearMetric",
+    "description": "Build and run business apps with shared data, reporting, permissions and governed changes.",
+    "endpoint": "https://api.clearmetric.ai/mcp",
+    "repository": "https://github.com/ClearMetricAI/clearmetric-mcp",
+    "website": "https://www.clearmetric.ai",
+    "version": "3.1.1",
+    "transport": "streamable-http",
+    "protocol_versions": [
+      "2026-07-28",
+      "2025-11-25",
+      "2025-06-18",
+      "2025-03-26"
+    ]
+  },
+  "tools": [
+    {
+      "name": "submit_feedback",
+      "title": "Send feedback to ClearMetric",
+      "description": "Send a feature request, bug report or general feedback to the ClearMetric team. Use only when the person explicitly asks to submit feedback. This does not change their business or app. Preserve their request in words and return the receipt.",
+      "group": "use",
+      "allowed_levels": null
+    },
+    {
+      "name": "describe_model",
+      "title": "Describe the model",
+      "description": "What this person may name here: entities with their visible fields, metrics, actions and apps, with the manifest version. Call it first. Hidden fields are absent, not nulled. The capabilities field lists current app development rights, backend authoring and build admission. Business developers may request capability_releases for bounded curated release contracts, explicit binding inputs and tenant display configuration. Recipes and data permissions remain private and separate. entities come first, each saying which sources it is built from and when they last came in; entities marked raw are one source's own records, so reach for the business entity before them. Owners may request definition_ids to read visible, unsealed canonical definitions and current expected_hash values for explicit composition changes. Never invent a hash. Use page with a path and the returned snapshot/next to retrieve complete context in work units.",
+      "group": "use",
+      "allowed_levels": null
+    },
+    {
+      "name": "search",
+      "title": "Search records",
+      "description": "Find records by text across the entities this person can see. Matches visible, non sensitive text and enum fields only.",
+      "group": "use",
+      "allowed_levels": null
+    },
+    {
+      "name": "query",
+      "title": "Query an entity",
+      "description": "Rows of one entity within this person's access, with filters, sort and keyset paging (pass next_cursor back as cursor). Up to 500 rows per page.",
+      "group": "use",
+      "allowed_levels": null
+    },
+    {
+      "name": "get_record",
+      "title": "Get one record",
+      "description": "One business record in an entity named by describe_model, with its related records, all within this person's access. Read changes with get_proposal.",
+      "group": "use",
+      "allowed_levels": null
+    },
+    {
+      "name": "measure",
+      "title": "Measure a metric",
+      "description": "Values of one metric by its grain, with eq/in filters over grain columns and an optional time range. Use total for the complete aggregate, never sum grouped values. Evidence distinguishes empty, unavailable, and suppressed results from zero. Complete says whether all groups are shown. The minimum group size and the role gate apply inside the metric view.",
+      "group": "use",
+      "allowed_levels": null
+    },
+    {
+      "name": "act",
+      "title": "Run an action",
+      "description": "Run one named action with its inputs (for update actions, record_id and row_version). An action runs through the shared change pipeline. Its returned status and needs say whether it applied or requires review.",
+      "group": "use",
+      "allowed_levels": null
+    },
+    {
+      "name": "list_apps",
+      "title": "List apps",
+      "description": "The apps this person may open: published to their role, or their own (owners see every app), each with its screens, how many parts it has, and whether it is a template to start from.",
+      "group": "use",
+      "allowed_levels": null
+    },
+    {
+      "name": "propose_change",
+      "title": "Propose a change",
+      "description": "Propose data writes (items) or a model change: add_fields and add_metrics put new fields and numbers on top of the model as it is, records from a source included (their new fields are the business's own; use these; anything marked clearmetric cannot be written out), or a whole manifest for the next version (a new entity, or an entity built from two sources with match rules). The shared pipeline decides whether each authorized request applies directly or needs review or confirmation. A role with explicit develop_entities can propose additive public fields, metrics and simple actions inside those exact record types using composition with stable-ID bindings. These proposals need ordinary manager or owner review and grant no record access. Private recipes and trusted programs remain protected. Follow the returned status and needs. Matching two records by hand and connecting a source are an owner's, from the console. Returns the proposal with its check report and console link. For a shared app, call this propose_change tool with its requirements field to get, save or prepare a brief. requirements is a field of this tool. Keep each missing decision, proposed default and later requirement. Its server readiness lists what still needs an answer. Prepare additive composition with explicit stable-ID bindings, or a complete compatible manifest, with the exact brief binding only when ready. Put op, binding and composition or manifest inside requirements for prepare. This prepares one atomic build through the shared pipeline and returns its authoritative status. Owners use capability to plan or adopt an exact curated backend release. Read permitted releases with describe_model capability_releases. Planning changes no live data. Adoption follows existing review.\nEvery prepared app includes its complete semantic contract in manifest.semantics or composition.fragment.semantics.\nFor every data definition ID (entity, field, metric, action), retain a business meaning and evidence references. Permissions and layouts stay in their existing typed contracts. Omit definition_hash on new declarations;\nthe engine pins normalized definitions. Retain existing pins when reusing unchanged meanings. Never invent hashes.\nRead existing definitions and their meanings before extending them. Reuse stable identities by evidence, never by name alone.\nMark ambiguous meanings unresolved and ask the missing business question. An unresolved or stale meaning cannot publish.\nDeclare identity keys with their existing executable unique constraints. Declare effective dates or immutable captured values\nfor history that must preserve earlier decisions, prices, rates or balances. Never rewrite historical meaning by substituting\ntoday's value. Business policies use the existing rules, actions, constraints, source mappings and field currency/zone contracts.\nUse Delivery.actions to name each promised role/action outcome and required refusal, including grants that could be omitted.\nKeep the contract in the backend. Explain permitted business meanings through Ask and record corrections in the existing brief.\n",
+      "group": "build",
+      "allowed_levels": null
+    },
+    {
+      "name": "propose_app",
+      "title": "Propose an app",
+      "description": "Propose a new or changed app: screens, each with sections from the component catalog bound to entities, metrics and actions by name. To add a screen to an app, send its screens by name (with no sections, each keeps its own) plus the new one. from_template makes this person their own copy of an app marked as a template, at once, leaving out what they cannot read; that is also how anyone changes an app marked clearmetric. The shared pipeline decides whether app changes apply directly or need review or confirmation; follow the returned status and needs. review_template_for compares a copied layout with its current template without changing it. Use its typed composition only when the person explicitly chooses to replace their screens. Returns the proposal with its check report and console link. frontend selects a separate typed frontend workspace command. inspect_import checks files, a ZIP export or GitHub source; import saves the exact checked draft. updates reads source, build and publication state. Its lifecycle pins the backend, source and build snapshot, shows owner-only requirement readiness, admission blockers and the exact next operation without changing live state. Named catalog returns lifecycle before the first save. link_upstream tracks a pinned repository without changing live behavior. check_update compares upstream, baseline and local edits. prepare_update saves an exact reviewed update and queues the existing build; it never publishes. Conflicts require explicit resolutions. Adapted apps require a note, managed source patch and complete changed-file coverage. GitHub branches resolve to immutable commits; private repositories use an existing business connection or supplied files with pinned origin. Missing shared capabilities remain review-required gaps. Use catalog to discover permitted published bindings and the SDK operation schemas. When describe_model.capabilities.first_app_requires_plan is true, planning_required directs you to propose_change.requirements get and the saved brief commands. Once ready, backend_preparation_required requires prepare with its exact brief binding and either composition or manifest before developing the first app's frontend. Export a React App({engine}) from src/App.tsx. Import Engine from @clearmetric/sdk and optional useRead from @clearmetric/sdk/react; the platform supplies the connection. With a project name catalog also returns the authorized app's published interface contract, which grants no record access. Use list to find projects, get for inventory or selected file contents, and save with the exact expected_revision. Use diagnostics with an exact app name for its permitted read-only error references, timestamps and public guidance. Private traces, other users' records and administrator recovery stay private. get also returns backend_contract_hash for its exact public interface and capability ceiling. To move reviewed custom source from test to production, read that exact source in its selected business, explicitly select the production business and save the source with its target base_version and expected_contract_hash from get. Changed capability identities or interfaces require explicit adaptation. Build a new production artifact and publish its exact receipt. Never reuse a test artifact, copy records or grants, or transfer acceptance. Imported apps need their original source imported in the target and fresh target acceptance. Saving code never builds, publishes or changes backend definitions, grants or authentication. In admitted businesses, build queues an exact revision with a stable request_key, builds reads its outcome, and publish proposes an exact ready artifact at the reviewed base_version through ordinary app approvals. On publish, replace_registered=true explicitly replaces a registered app with its exact built frontend while preserving app identity and existing sharing. Only owner or manager authoring can request this. The default refuses conversion, and sealed apps and templates remain protected. Reconcile an existing request_key before submitting another command after an interrupted response. Owners manage apps. Roles with develop_apps can edit those exact apps and submit releases for ordinary review, within their approved capability ceiling. Build and production admission are checked separately. Never mix a frontend command with live app edits. An empty get paths list returns inventory without source contents.",
+      "group": "build",
+      "allowed_levels": null
+    },
+    {
+      "name": "list_proposals",
+      "title": "List proposals",
+      "description": "Proposals this person authored, plus every proposal for owners and managers. Returns summaries only, ten by default. Filter pending to check for an existing review. Read one change's full definitions with get_proposal. Current definitions come from describe_model.",
+      "group": "build",
+      "allowed_levels": null
+    },
+    {
+      "name": "get_proposal",
+      "title": "Get a proposal",
+      "description": "One proposal with its status, permitted definitions, check report and console link. Use this to read an existing or declined build before correcting it; proposals are not business entities.",
+      "group": "build",
+      "allowed_levels": null
+    },
+    {
+      "name": "propose_access",
+      "title": "Propose an access change",
+      "description": "Change a person's role, team or active state, or use roles to edit business roles through the shared Access editor. Owners only. A role's develop_apps names exact app IDs from describe_model and grants source and public interface authoring without business records, action execution or permission administration. An empty list revokes it. develop_entities names existing stable entity IDs for bounded public backend proposals with separate review, without record access or permission administration. An empty list revokes that delegation. Send role edits separately from membership changes. All changes use the shared pipeline and effective approval rule.",
+      "group": "govern",
+      "allowed_levels": [
+        "owner"
+      ]
+    },
+    {
+      "name": "invite",
+      "title": "Invite a person",
+      "description": "Invite one person by email with a role and team. Owners only; the invitation follows the shared pipeline's checks and effective approval rule. Use purpose test_collaborator to explicitly invite a real QA collaborator to a test business; normal email acceptance is required. Any role-configured profile action completes with invitation application.",
+      "group": "govern",
+      "allowed_levels": [
+        "owner"
+      ]
+    },
+    {
+      "name": "view_as",
+      "title": "Preview a person's permissions",
+      "description": "Preview another person's role catalog by their user_id. Owners only. Read only. This does not sign in as that person, return their records or change the current actor. Use an independently accepted test collaborator for execution under another role.",
+      "group": "govern",
+      "allowed_levels": [
+        "owner"
+      ]
+    },
+    {
+      "name": "access_summary",
+      "title": "Access summary",
+      "description": "Every person's role, team and state, each role's grid, and the AI clients connected. Owners only.",
+      "group": "govern",
+      "allowed_levels": [
+        "owner"
+      ]
+    },
+    {
+      "name": "connect_source",
+      "title": "Connect a source",
+      "description": "Start connecting a source (github_oauth, github, csv, google_sheets, google, sql_database, rest_api, quickbooks, hubspot, stripe, salesforce, shopify, microsoft, google_drive). With a connector and label it files a connection proposal; `name` is the short name the model uses for its records (qb, crm); credentials are entered in the console, never here. Owners only. Returns the console link. Without connector and label, discover nonsecret connector setup plus current email and module support. Readiness describes platform configuration, not an authorized connection. A tool with no connector of its own is rest_api: fill every setting its API needs from the tool's own documentation; a record's key inside an object is written with dots (id.record_id). github settings: repository_owner (GitHub owner, required, e.g. your-company); repository (Repository, required, e.g. your-app). csv settings: delimiter (Delimiter); encoding (Encoding). google_sheets settings: spreadsheet_id (Link to the sheet); sheet (Tab). sql_database settings: schema (Which part of the database (optional), e.g. public); tables (Which tables (comma separated, blank for all), e.g. orders,customers). rest_api settings: base_url (Where the API is, required, e.g. https://api.vendor.com/v1); objects (What to pull (name:path:key, comma separated), required, e.g. invoice:/invoices:id,customer:/customers:id); auth_header (How the token is sent (blank for a bearer token), e.g. Authorization: Bearer {token}); since_param (The parameter that takes a since date (optional), e.g. updated_since); page_param (The page number parameter (optional), e.g. page); data_path (Where the records are in each answer (optional), e.g. data); cursor_path (Where the next cursor is in each answer (optional), e.g. meta.next_cursor); cursor_param (The parameter the cursor goes back in (optional), e.g. cursor); next_link_path (Where the next page's link is in each answer (optional), e.g. links.next); token_url (Where a token is minted from an app id and secret (optional), e.g. https://api.vendor.com/oauth/token); since_in (Where the since date goes, query, path or body (optional), e.g. query); list_method (How records are listed, get or post (optional), e.g. get); offset_param (The offset parameter for paging (optional), e.g. offset); limit_param (The page size parameter (optional), e.g. limit); page_size (Records per page (optional), e.g. 100); steps (What to do in the tool to get a key, one step per line (optional)). quickbooks settings: environment (Which QuickBooks, e.g. production). salesforce settings: environment (Production or sandbox, e.g. production). shopify settings: shop (The store's .myshopify.com address, e.g. your-store.myshopify.com). microsoft settings: workbook (The Excel workbook, its path in OneDrive, e.g. /Budget.xlsx); site (The SharePoint site (optional), e.g. contoso.sharepoint.com:/sites/ops); lists (SharePoint lists, comma separated (optional), e.g. Tasks,Vendors); documents_folder (Documents folder); documents_site (Documents site); documents_into (Documents into). google_drive settings: documents_folder (Documents folder); documents_into (Documents into).",
+      "group": "setup",
+      "allowed_levels": [
+        "owner"
+      ]
+    },
+    {
+      "name": "sync_status",
+      "title": "Sync status",
+      "description": "Connected sources, when each last came in and how, its schedule and next run, and which records it feeds. Owners and managers.",
+      "group": "setup",
+      "allowed_levels": [
+        "manager",
+        "owner"
+      ]
+    }
+  ],
+  "connectors": [
+    {
+      "name": "github_oauth",
+      "label": "GitHub",
+      "description": "Read application source from the GitHub repositories you select",
+      "auth": "oauth",
+      "purpose": "app_source",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "github",
+      "label": "GitHub repository",
+      "description": "Read application source from one authorized GitHub repository",
+      "auth": "secret",
+      "purpose": "app_source",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "csv",
+      "label": "CSV file",
+      "description": "A CSV file uploaded by a person",
+      "auth": "none",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "google_sheets",
+      "label": "Google Sheets (shared with ClearMetric)",
+      "description": "A Google Sheets file shared with ClearMetric's account",
+      "auth": "service_account",
+      "purpose": "data",
+      "imports": true,
+      "instead": "google"
+    },
+    {
+      "name": "google",
+      "label": "Google Sheets",
+      "description": "The sheets you pick from your Google account",
+      "auth": "oauth",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "sql_database",
+      "label": "A database of ours",
+      "description": "Your own Postgres or MySQL database, read only",
+      "auth": "secret",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "rest_api",
+      "label": "An API",
+      "description": "Any other tool with an API",
+      "auth": "secret",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "quickbooks",
+      "label": "QuickBooks Online",
+      "description": "Invoices, bills, payments, customers and hours",
+      "auth": "oauth",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "hubspot",
+      "label": "HubSpot",
+      "description": "Companies, contacts, deals and tickets",
+      "auth": "secret",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "stripe",
+      "label": "Stripe",
+      "description": "Customers, invoices, payments and payouts",
+      "auth": "secret",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "salesforce",
+      "label": "Salesforce",
+      "description": "Accounts, contacts, leads and opportunities",
+      "auth": "oauth",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "shopify",
+      "label": "Shopify",
+      "description": "Orders, customers and products",
+      "auth": "client_credentials",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "microsoft",
+      "label": "Microsoft 365",
+      "description": "Excel tables and SharePoint lists",
+      "auth": "oauth",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    },
+    {
+      "name": "google_drive",
+      "label": "Google Drive",
+      "description": "Google Drive: the files in a folder shared with ClearMetric's account",
+      "auth": "service_account",
+      "purpose": "data",
+      "imports": false,
+      "instead": ""
+    }
+  ],
+  "clients": [
+    {
+      "id": "claude",
+      "label": "Claude",
+      "help": "https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp",
+      "steps": [
+        "In Claude web or Desktop, open Customize → Connectors → Add → Add custom connector. Name it ClearMetric and paste this server address.",
+        "Choose OAuth sign-in and Register automatically. Connect, sign in to ClearMetric, choose your business and select Allow.",
+        "Start a conversation and enable ClearMetric from the + menu under Connectors. Paste the starter prompt."
+      ],
+      "note": "A Team or Enterprise workspace may need its owner to add the connector first.",
+      "verification": {
+        "documentation_checked_at": "2026-11-21",
+        "connection_tested_at": null
+      }
+    },
+    {
+      "id": "chatgpt",
+      "label": "ChatGPT",
+      "help": "https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt",
+      "steps": [
+        "Open Plugins → + → Add custom MCP server. Name it ClearMetric, paste this server address and choose OAuth authentication.",
+        "Review ChatGPT’s connection notice and choose Create as a plugin. Sign in to ClearMetric, choose your business and select Allow. Review the discovered tools.",
+        "Install the plugin, start a conversation and type @ to select ClearMetric. Paste the starter prompt and confirm actions when prompted."
+      ],
+      "note": "Custom MCP access depends on your plan and workspace permissions. If your account shows the earlier Apps interface, use Settings → Apps → Create, choose OAuth, Scan Tools and Create.",
+      "verification": {
+        "documentation_checked_at": "2026-11-21",
+        "connection_tested_at": null
+      }
+    },
+    {
+      "id": "cursor",
+      "label": "Cursor",
+      "help": "https://cursor.com/docs/mcp",
+      "steps": [
+        "Add the configuration below to .cursor/mcp.json in your project. Keep any other servers already configured.",
+        "Open Cursor’s MCP settings and connect ClearMetric. Complete the browser sign-in, choose your business and select Allow.",
+        "Open Agent with ClearMetric enabled and paste the starter prompt."
+      ],
+      "configuration": {
+        "label": "Cursor configuration",
+        "text": "{\n  \"mcpServers\": {\n    \"clearmetric\": {\n      \"url\": \"https://api.clearmetric.ai/mcp\"\n    }\n  }\n}"
+      },
+      "verification": {
+        "documentation_checked_at": "2026-11-21",
+        "connection_tested_at": null
+      }
+    },
+    {
+      "id": "claude_code",
+      "label": "Claude Code",
+      "help": "https://code.claude.com/docs/en/mcp",
+      "steps": [
+        "Run the command below in your project to add ClearMetric as an HTTP MCP server.",
+        "In Claude Code, run /mcp, choose ClearMetric and authenticate. Sign in in the browser, choose your business and select Allow.",
+        "Return to Claude Code and paste the starter prompt."
+      ],
+      "configuration": {
+        "label": "Claude Code command",
+        "text": "claude mcp add --transport http clearmetric https://api.clearmetric.ai/mcp"
+      },
+      "verification": {
+        "documentation_checked_at": null,
+        "connection_tested_at": null
+      }
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "help": "https://developers.openai.com/codex/mcp",
+      "steps": [
+        "Add the configuration below to your Codex configuration at ~/.codex/config.toml. Keep any other servers already configured.",
+        "Run codex mcp login clearmetric, or authenticate ClearMetric in MCP settings. Sign in in the browser, choose your business and select Allow.",
+        "Open a new Codex conversation with ClearMetric enabled and paste the starter prompt."
+      ],
+      "configuration": {
+        "label": "Codex configuration",
+        "text": "[mcp_servers.clearmetric]\nurl = \"https://api.clearmetric.ai/mcp\""
+      },
+      "verification": {
+        "documentation_checked_at": null,
+        "connection_tested_at": null
+      }
+    },
+    {
+      "id": "other",
+      "label": "Other MCP client",
+      "help": "https://modelcontextprotocol.io/docs/develop/connect-remote-servers",
+      "steps": [
+        "Add a remote MCP server named ClearMetric using the server address above. Choose HTTP or Streamable HTTP transport.",
+        "Use OAuth with automatic client registration. Sign in to ClearMetric, choose your business and select Allow.",
+        "Enable ClearMetric’s tools in your conversation and paste the starter prompt."
+      ],
+      "note": "Your client must support remote HTTP MCP servers and OAuth sign-in.",
+      "verification": {
+        "documentation_checked_at": null,
+        "connection_tested_at": null
+      }
+    }
+  ],
+  "instructions": "ClearMetric Engine. Call describe_model first to learn the entities, fields, metrics, actions and apps this person may name; every other tool takes those names. You see exactly what the signed in person sees. Every write uses the shared pipeline. The returned status and needs say whether it applied or requires review or confirmation. Do not request another approval or code for an applied change. Pending changes are not done; approval controls stay in the console and there is no approve tool. Identity, business and environment come from the authenticated context, never extra tool arguments. Resolve business uncertainty through the shared resolution field, not invented meanings.\nRead describe_model and its permitted meanings first. Reuse supplied facts and current definitions.\nAn ordinary clear read needs no interview or saved plan. If materially different interpretations remain,\nask one concrete question. On query, measure, search, get_record or act, resolution op ask can save two to\neight complete candidate argument sets for that same tool. Choices are client proposals, not verified\nbusiness facts. Keep labels concise and use only permitted definitions and records. Present the returned\nserver question and choice IDs. Submit resolution op answer with its id, revision and selected choice ID,\nthen follow its actual result. Never claim an MCP answer proves human approval. It changes no shared\nmeaning or permission. Shared definitions use the existing requirements and model proposal path.\nUse op get to resume or inspect a decision and op cancel to cancel pending work. Never repeat a write\nafter an uncertain response; inspect its original proposal/outcome. A changed model or access needs fresh\ncontext. Missing data, missing permissions and unsupported capabilities are different from an unanswered\nbusiness choice. Never fabricate zero or disguise an unsupported workflow as ordinary records.\n"
+}
