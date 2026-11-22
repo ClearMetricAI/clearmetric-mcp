@@ -1,14 +1,14 @@
 {
   "artifacts": {
-    "README.md": "072a053afe9418a38c666f0fac28f94bcc89c64b0c221e953d0cb44d6496ae9d",
+    "README.md": "98ffd6d9f84f0e382ecb76448c1b19bfcb07ec114e64fbab1bd8557abadbde67",
     "catalog.json": "700bffdb0d71e2b804765e9a6267bc48f6a4ff38971254817ac53a3f8df1d3c0",
     "server.json": "1c6a77acbf74aea789f072e310c373d8c9e230600a62ea2ad49d5328b9189872"
   },
-  "checked_at": "2026-11-22T00:04:37.487379+00:00",
+  "checked_at": "2026-11-22T00:11:16.401816+00:00",
   "deployed_engine_revision": "06a3f18a97ecf1a716d326a5e68c19e219827069",
   "format_version": 1,
   "oauth_resource_metadata": "https://api.clearmetric.ai/.well-known/oauth-protected-resource/mcp",
-  "source_revision": "877da27bd8965dde62e5b03d9b9507f21902eeae",
+  "source_revision": "040c80b6d485b7b5350c6426143798be590435ca",
   "verification": {
     "client_connections": {
       "chatgpt": "not_tested",

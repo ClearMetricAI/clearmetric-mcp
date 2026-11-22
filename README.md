@@ -14,6 +14,9 @@ You need an active ClearMetric account and access to a business. Request access
 on the website if you do not have one. Your AI client's subscription and workspace
 permissions are separate requirements.
 
+If your account requires authenticator verification, complete it in
+[ClearMetric Me](https://app.clearmetric.ai/me) before authorizing your AI client.
+
 The remote server uses Streamable HTTP with OAuth sign-in.
 
 ```text
@@ -220,6 +223,11 @@ using its official guide. If sign-in fails, confirm you have business access and
 reconnect through OAuth. If a tool is denied, ask your business owner to review
 your permissions. If a change is pending, open its returned ClearMetric review
 link. A request for review does not mean the change has applied.
+
+If the server returns `mfa_required`, verify your account with an authenticator
+in ClearMetric, then disconnect and authorize the AI client again. Email sign-in
+codes do not satisfy this account-security requirement. Reconnect after account
+security changes if the server says your account verification ended.
 
 ## Version and maintenance
 
