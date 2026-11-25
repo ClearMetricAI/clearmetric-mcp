@@ -1,14 +1,15 @@
 {
   "artifacts": {
-    "README.md": "e1c50e9457a826a628f4864001c0c3d39146382a5be34fa92c5cea8a0bfe2a50",
-    "catalog.json": "700bffdb0d71e2b804765e9a6267bc48f6a4ff38971254817ac53a3f8df1d3c0",
-    "server.json": "1c6a77acbf74aea789f072e310c373d8c9e230600a62ea2ad49d5328b9189872"
+    "README.md": "c5aadd4e74640df2a6fe2cc7650852e55e32e1696bb37d3139d9c87dd1b2a4ad",
+    "catalog.json": "e0b40833afddedef60836cfae388611a487b38864477118c8e6955918be27796",
+    "clearmetric-plugin.zip": "ee0be7093b0c86840af3f26e244098721e9f56b46b50094f39a833263c688d5a",
+    "server.json": "98e0fb1fdeafb5c9e1cce4937627980131791f6d32feaa44779ef9c4306c8b71"
   },
-  "checked_at": "2026-11-22T00:49:46.214231+00:00",
-  "deployed_engine_revision": "fac76125bb5ad6b73f1c4fff1b688a7fb764d6a5",
+  "checked_at": "2026-11-25T02:49:41.475474+00:00",
+  "deployed_engine_revision": "4bc322376ef269244b746836d6cf1e9d59463ff6",
   "format_version": 1,
   "oauth_resource_metadata": "https://api.clearmetric.ai/.well-known/oauth-protected-resource/mcp",
-  "source_revision": "fac76125bb5ad6b73f1c4fff1b688a7fb764d6a5",
+  "source_revision": "4bc322376ef269244b746836d6cf1e9d59463ff6",
   "verification": {
     "client_connections": {
       "chatgpt": "not_tested",

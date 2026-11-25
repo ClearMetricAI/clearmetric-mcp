@@ -3,9 +3,9 @@
 Connect your AI to ClearMetric to build and run business apps, query shared
 records, measure business results and propose changes under your existing access
 and review rules. ClearMetric hosts the service. This repository contains its
-public documentation and connection metadata.
+public documentation, connection metadata and plugin package.
 
-[ClearMetric](https://www.clearmetric.ai) · [Request access](https://www.clearmetric.ai)
+[ClearMetric](https://www.clearmetric.ai) · [Download the plugin package](clearmetric-plugin.zip)
 · [Public catalog](catalog.json) · [Release verification](release.json)
 
 ## Connect

@@ -9,6 +9,15 @@
     "source": "github"
   },
   "websiteUrl": "https://www.clearmetric.ai",
+  "icons": [
+    {
+      "src": "https://api.clearmetric.ai/mcp/icon.png?v=2b4c0a9110a76971619615b194d8ce35c54205e96f539e8b3b1a649929891c70",
+      "mimeType": "image/png",
+      "sizes": [
+        "96x96"
+      ]
+    }
+  ],
   "remotes": [
     {
       "type": "streamable-http",
